@@ -1,0 +1,118 @@
+.pointer {
+  cursor: pointer;
+}
+
+.hash {
+  background: #444;
+  border-radius: 10px;
+  padding: 15px;
+}
+.item-hash {
+  display: flex;
+  height: 100px;
+}
+
+.button {
+  width: 49vw;
+}
+
+.done {
+  margin-left: 10px;
+}
+
+@-webkit-keyframes checkmark {
+  0% {
+    stroke-dashoffset: 100px;
+  }
+
+  100% {
+    stroke-dashoffset: 200px;
+  }
+}
+
+@-ms-keyframes checkmark {
+  0% {
+    stroke-dashoffset: 100px;
+  }
+
+  100% {
+    stroke-dashoffset: 200px;
+  }
+}
+
+@keyframes checkmark {
+  0% {
+    stroke-dashoffset: 100px;
+  }
+
+  100% {
+    stroke-dashoffset: 0px;
+  }
+}
+
+@-webkit-keyframes checkmark-circle {
+  0% {
+    stroke-dashoffset: 480px;
+  }
+
+  100% {
+    stroke-dashoffset: 960px;
+  }
+}
+
+@-ms-keyframes checkmark-circle {
+  0% {
+    stroke-dashoffset: 240px;
+  }
+
+  100% {
+    stroke-dashoffset: 480px;
+  }
+}
+
+@keyframes checkmark-circle {
+  0% {
+    stroke-dashoffset: 480px;
+  }
+
+  100% {
+    stroke-dashoffset: 960px;
+  }
+}
+
+@keyframes colored-circle {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 100;
+  }
+}
+
+/* other styles */
+/* .svg svg {
+    display: none
+}
+ */
+.inlinesvg .svg svg {
+  display: inline;
+}
+
+/* .svg img {
+    display: none
+} */
+
+.icon--order-success svg polyline {
+  -webkit-animation: checkmark 0.1s ease-in-out 0.4s backwards;
+  animation: checkmark 0.1s ease-in-out 0.4s backwards;
+}
+
+.icon--order-success svg circle {
+  -webkit-animation: checkmark-circle 0.3s ease-in-out backwards;
+  animation: checkmark-circle 0.3s ease-in-out backwards;
+}
+.icon--order-success svg circle#colored {
+  -webkit-animation: colored-circle 0.3s ease-in-out 0.4s backwards;
+  animation: colored-circle 0.3s ease-in-out 0.4s backwards;
+}
