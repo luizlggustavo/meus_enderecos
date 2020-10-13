@@ -6,14 +6,23 @@
     <ion-title class="ion-text-center">
       Novo Endereço
     </ion-title>
+    <ion-buttons slot="primary" *ngIf="enderecoId">
+      <ion-button (click)="removerEndereco()">
+        <ion-icon slot="icon-only" name="trash" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+  <div class="container-options ion-padding" *ngIf="showLabelEndereco()">
+    <b>Endereço:</b> {{labelEndereco()}}
+  </div>
+
   <form [formGroup]="formularioEndereco" (ngSubmit)="salvarFormulario()" novalidate class="container" color="primary">
 
-    <ion-card>
+    <ion-card class="ion-margin-top">
       <ion-item lines="full">
         <ion-label position="floating">CEP</ion-label>
         <ion-input placeholder="Digite o CEP" formControlName="cep" type="text">
@@ -100,12 +109,104 @@
 
     </ion-card>
 
-    <ion-row>
-      <ion-col>
-        <ion-button [disabled]="formularioIncompleto()" type="submit" color="success" expand="block">Submit</ion-button>
-      </ion-col>
-    </ion-row>
+    <ion-card class="ion-margin-top">
+
+      <ion-item lines="full">
+        <ion-label position="stacked">DATA</ion-label>
+        <ion-datetime placeholder="Selecione a data" formControlName="data" display-format="DD/MM/YYYY"></ion-datetime>
+      </ion-item>
+
+      <!-- <div *ngIf="inputTouched('pais')">
+        <span class="erro-formulario" *ngIf="inputRequired('pais')">É necessário um País</span>
+        <span class="erro-formulario" *ngIf="inputMinLength('pais')">Pelo menos duas letras são necessárias</span>
+      </div> -->
+
+      <ion-item lines="full">
+        <ion-label position="floating">RAMO DE ATIVIDADE</ion-label>
+        <ion-input maxlength="50" placeholder="Ramo de atividade" formControlName="ramoAtividade" type="text">
+        </ion-input>
+      </ion-item>
+
+      <div *ngIf="inputTouched('ramoAtividade')">
+        <span class="erro-formulario" *ngIf="inputRequired('ramoAtividade')">Informe o ramo de atividade</span>
+        <span class="erro-formulario" *ngIf="inputMinLength('ramoAtividade')">Pelo menos duas letras são
+          necessárias</span>
+      </div>
+
+      <ion-item lines="full">
+        <ion-label position="floating">CLASSE</ion-label>
+        <ion-input maxlength="50" placeholder="Classe" formControlName="classe" type="text">
+        </ion-input>
+      </ion-item>
+
+      <div *ngIf="inputTouched('classe')">
+        <span class="erro-formulario" *ngIf="inputRequired('classe')">Informe a classe</span>
+        <span class="erro-formulario" *ngIf="inputMinLength('classe')">Pelo menos duas letras são necessárias</span>
+      </div>
+
+      <ion-item lines="full">
+        <ion-label position="floating">TIPO DE IMÓVEL</ion-label>
+        <ion-select formControlName="tipoImovel" placeholder="Selecione" interface="popover">
+          <ion-select-option *ngFor="let tipo of tiposImoveis" [value]="tipo?.id">
+            {{tipo?.descricao}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <div *ngIf="inputTouched('tipoImovel')">
+        <span class="erro-formulario" *ngIf="inputRequired('tipoImovel')">
+          É necessário selecionar o tipo do imóvel
+        </span>
+      </div>
+
+    </ion-card>
+
+    <ion-card class="ion-margin-top">
+
+      <ion-item lines="full">
+        <ion-label position="floating">DESCRIÇÃO</ion-label>
+        <ion-textarea autoGrow="true" maxlength="250" placeholder="Descrição" formControlName="descricao" type="text">
+        </ion-textarea>
+      </ion-item>
+
+      <div *ngIf="inputTouched('descricao')">
+        <span class="erro-formulario" *ngIf="inputRequired('descricao')">É necessário um bairro</span>
+        <span class="erro-formulario" *ngIf="inputMinLength('descricao')">Pelo menos duas letras são necessárias</span>
+      </div>
+
+    </ion-card>
+
+    <ion-card class="ion-margin-top">
+
+      <ion-item lines="full">
+        <ion-label position="stacked">DATA DE ACOMPANHAMENTO - INÍCIO</ion-label>
+        <ion-datetime placeholder="Selecione a data" formControlName="dataInicio" display-format="DD/MM/YYYY">
+        </ion-datetime>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="stacked">DATA DE ACOMPANHAMENTO - TÉRMINO</ion-label>
+        <ion-datetime placeholder="Selecione a data" formControlName="dataTermino" display-format="DD/MM/YYYY">
+        </ion-datetime>
+      </ion-item>
+
+    </ion-card>
 
   </form>
+
+  <div class="container-options">
+    <ion-row>
+      <ion-col size="6">
+        <ion-button (click)="cancelar()">
+          <b>Cancelar</b>
+        </ion-button>
+      </ion-col>
+      <ion-col size="6" class="ion-text-end">
+        <ion-button [disabled]="formularioIncompleto()" type="submit" (click)="salvarEditar()">
+          <b>Salvar</b>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
 
 </ion-content>

@@ -1,5 +1,7 @@
 {
   "name": "meus_enderecos",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

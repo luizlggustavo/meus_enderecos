@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { DatabaseService } from './shared/services/database.service';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +13,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 export class AppComponent {
   constructor(
     private platform: Platform,
+    private statusBar: StatusBar,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private databaseService: DatabaseService,
   ) {
     this.initializeApp();
   }
@@ -22,6 +24,12 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.buildDatabase();
     });
+  }
+
+  buildDatabase() {
+    debugger
+    this.databaseService.openDataBase();
   }
 }

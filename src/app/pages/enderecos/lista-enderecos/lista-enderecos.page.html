@@ -8,13 +8,26 @@
 
 <ion-content>
 
-  <ion-item button>
-    <ion-icon name="map" slot="start"></ion-icon>
-    <ion-label>
-      <h3>Rua São Bento</h3>
-      <p>Sítio Jaraguá</p>
-    </ion-label>
-  </ion-item>
+  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)" pullFactor="0.8" pullMin="60" pullMax="120">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ng-container *ngIf="enderecos && enderecos.length > 0; else semEnderecosCadastrados">
+    <ion-item button *ngFor="let endereco of enderecos" (click)="abrirEndereco(endereco?.id)">
+      <ion-icon name="map" slot="start"></ion-icon>
+      <ion-label>
+        <h3>{{labelEndereco(endereco)}}</h3>
+        <p>{{endereco?.complemento}}</p>
+      </ion-label>
+    </ion-item>
+  </ng-container>
+  <ng-template #semEnderecosCadastrados>
+    <ion-row class="ion-padding-start">
+      <ion-col size="12" class="ion-padding ion-text-center">
+        Você não possui endereços cadastrados
+      </ion-col>
+    </ion-row>
+  </ng-template>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button color="success" [routerLink]="['/enderecos/formulario']">

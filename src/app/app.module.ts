@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http'
-
-
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
+import { SQLite } from '@ionic-native/sqlite/ngx';
 import { AppRoutingModule } from './app-routing.module';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { ComponentsModule } from './shared/components/components.module';
 
 @NgModule({
@@ -27,7 +27,9 @@ import { ComponentsModule } from './shared/components/components.module';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    SQLite,
+    SQLitePorter
   ],
   bootstrap: [AppComponent]
 })
