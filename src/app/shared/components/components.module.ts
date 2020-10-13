@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -12,7 +12,7 @@ import { IonicModule } from '@ionic/angular';
     FormsModule,
     IonicModule,
     CommonModule,
-    RouterModule
+    RouterModule,
   ],
   entryComponents: [
   ],

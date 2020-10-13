@@ -1,0 +1,111 @@
+<ion-header>
+  <ion-toolbar class="header">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      Novo Endereço
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="formularioEndereco" (ngSubmit)="salvarFormulario()" novalidate class="container" color="primary">
+
+    <ion-card>
+      <ion-item lines="full">
+        <ion-label position="floating">CEP</ion-label>
+        <ion-input placeholder="Digite o CEP" formControlName="cep" type="text">
+        </ion-input>
+      </ion-item>
+
+      <div *ngIf="inputTouched('cep')">
+        <span class="erro-formulario" *ngIf="inputRequired('cep')">É necessário um CEP</span>
+        <span class="erro-formulario" *ngIf="inputMaxLength('cep') || inputMinLength('cep')">O CEP deve conter 8
+          dígitos</span>
+      </div>
+
+      <ion-item lines="full">
+        <ion-label position="floating">País</ion-label>
+        <ion-input maxlength="50" placeholder="País" formControlName="pais" type="text">
+        </ion-input>
+      </ion-item>
+
+      <div *ngIf="inputTouched('pais')">
+        <span class="erro-formulario" *ngIf="inputRequired('pais')">É necessário um País</span>
+        <span class="erro-formulario" *ngIf="inputMinLength('pais')">Pelo menos duas letras são necessárias</span>
+      </div>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Logradouro</ion-label>
+        <ion-input maxlength="100" placeholder="Logradouro" formControlName="logradouro" type="text">
+        </ion-input>
+      </ion-item>
+
+      <div *ngIf="inputTouched('logradouro')">
+        <span class="erro-formulario" *ngIf="inputRequired('logradouro')">É necessário um logradouro</span>
+        <span class="erro-formulario" *ngIf="inputMinLength('logradouro')">Pelo menos duas letras são necessárias</span>
+      </div>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Complemento</ion-label>
+        <ion-input maxlength="50" placeholder="Complemento" formControlName="complemento" type="text">
+        </ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Bairro</ion-label>
+        <ion-input maxlength="100" placeholder="Bairro" formControlName="bairro" type="text">
+        </ion-input>
+      </ion-item>
+
+      <div *ngIf="inputTouched('bairro')">
+        <span class="erro-formulario" *ngIf="inputRequired('bairro')">É necessário um bairro</span>
+        <span class="erro-formulario" *ngIf="inputMinLength('bairro')">Pelo menos duas letras são necessárias</span>
+      </div>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Número</ion-label>
+        <ion-input maxlength="10" placeholder="Número" formControlName="numero" type="number">
+        </ion-input>
+      </ion-item>
+
+      <div *ngIf="inputTouched('numero')">
+        <span class="erro-formulario" *ngIf="inputRequired('numero')">É necessário um número</span>
+        <span class="erro-formulario" *ngIf="inputMinLength('numero')">Pelo menos dois dígitos são necessários</span>
+      </div>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Cidade</ion-label>
+        <ion-input maxlength="100" placeholder="Cidade" formControlName="cidade" type="text">
+        </ion-input>
+      </ion-item>
+
+      <div *ngIf="inputTouched('cidade')">
+        <span class="erro-formulario" *ngIf="inputRequired('cidade')">É necessário uma cidade</span>
+        <span class="erro-formulario" *ngIf="inputMinLength('cidade')">Pelo menos duas letras são necessárias</span>
+      </div>
+
+      <ion-item lines="full">
+        <ion-label position="floating">UF</ion-label>
+        <ion-input maxlength="2" placeholder="UF" formControlName="uf" type="text">
+        </ion-input>
+      </ion-item>
+
+      <div *ngIf="inputTouched('uf')">
+        <span class="erro-formulario" *ngIf="inputRequired('uf')">É necessário um Estado (UF)</span>
+        <span class="erro-formulario" *ngIf="inputMinLength('uf')">Duas letras são necessárias</span>
+      </div>
+
+    </ion-card>
+
+    <ion-row>
+      <ion-col>
+        <ion-button [disabled]="formularioIncompleto()" type="submit" color="success" expand="block">Submit</ion-button>
+      </ion-col>
+    </ion-row>
+
+  </form>
+
+</ion-content>

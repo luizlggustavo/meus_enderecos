@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { IonicModule } from '@ionic/angular';
-import { ComponentsModule } from '../../shared/components/components.module';
+import { EnderecosRoutingModule } from './enderecos.routing';
+import { FormularioPage } from './formulario/formulario.page';
 import { ListaEnderecosPage } from './lista-enderecos/lista-enderecos.page';
+import { ComponentsModule } from '../../shared/components/components.module';
 
 @NgModule({
   imports: [
@@ -13,13 +14,12 @@ import { ListaEnderecosPage } from './lista-enderecos/lista-enderecos.page';
     FormsModule,
     IonicModule,
     ComponentsModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: ListaEnderecosPage
-      }
-    ])
+    ReactiveFormsModule,
+    EnderecosRoutingModule,
   ],
-  declarations: [ListaEnderecosPage]
+  declarations: [
+    FormularioPage,
+    ListaEnderecosPage,
+  ]
 })
-export class MeusEnderecosPageModule {}
+export class MeusEnderecosPageModule { }

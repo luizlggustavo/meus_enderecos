@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="header">
     <ion-title class="ion-text-center">
       Meus endereços
     </ion-title>
@@ -16,8 +16,8 @@
     </ion-label>
   </ion-item>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" >
-    <ion-fab-button color="success">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="success" [routerLink]="['/enderecos/formulario']">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

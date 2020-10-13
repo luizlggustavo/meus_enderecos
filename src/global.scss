@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -32,6 +32,20 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
+}
+
+.header {
+  --background: var(--primary-blue-color);
+  color: #fff;
+}
+
+.erro-formulario {
+  margin: 5px;
+  color: #fff;
+  line-height: 2;
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: #eb445a;
 }

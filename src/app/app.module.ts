@@ -22,7 +22,7 @@ import { ComponentsModule } from './shared/components/components.module';
     AppRoutingModule,
     HttpClientModule,
     ComponentsModule,
-    IonicModule.forRoot()
+    IonicModule.forRoot(),
   ],
   providers: [
     StatusBar,
