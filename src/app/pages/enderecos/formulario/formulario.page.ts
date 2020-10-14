@@ -154,7 +154,7 @@ export class FormularioPage implements OnInit {
 
   public editarFormulario(endereco: Endereco) {
     try {
-      this.enderecoService.putEndereco(endereco).then(() => {
+      this.enderecoService.putEndereco(endereco, this.enderecoId).then(() => {
         this.presentToast('Editado com sucesso');
         this.location.back();
       });

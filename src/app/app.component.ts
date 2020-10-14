@@ -22,14 +22,13 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
+      this.statusBar.backgroundColorByName('lightGray');
       this.splashScreen.hide();
       this.buildDatabase();
     });
   }
 
   buildDatabase() {
-    debugger
     this.databaseService.openDataBase();
   }
 }

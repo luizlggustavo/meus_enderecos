@@ -2,12 +2,10 @@ import { Resolve } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
 import { LoadingController } from '@ionic/angular';
-import { mergeMap, catchError } from 'rxjs/operators';
+import { DatabaseService } from './database.service';
 import { Endereco } from '../interfaces/endereco.interface';
 import { TipoImovel } from '../interfaces/tipo-imovel.interface';
-import { DatabaseService } from './database.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,35 +13,32 @@ import { DatabaseService } from './database.service';
 export class EnderecoService implements Resolve<TipoImovel[]> {
 
   constructor(
-    private http: HttpClient,
     private databaseService: DatabaseService,
     private loadingController: LoadingController,
   ) { }
 
-  resolve(): Observable<TipoImovel[]> {
-    this.showLoading();
-    return this.getTiposImoveis().pipe(catchError(error => {
-      this.loadingController.dismiss();
-      return error;
-    }), mergeMap((tiposImoveis: TipoImovel[]) => {
-      this.loadingController.dismiss();
-      return of(tiposImoveis);
-    }));
-  }
-
-  async showLoading() {
+  async resolve(): Promise<TipoImovel[]> {
     const loading = await this.loadingController.create({
       spinner: 'bubbles',
-      message: 'Iniciando Formulário',
+      message: 'Iniciando formulário',
+      backdropDismiss: true,
       translucent: true,
     });
     loading.present();
+    const result = await this.getTiposImoveis();
+    loading.dismiss();
+    return result;
+  }
+
+  async showLoading() {
+
   }
 
   async getListaEnderecos(): Promise<Endereco[]> {
     const sql = 'SELECT * FROM enderecos';
     const result = await this.databaseService.executeSql(sql);
     const enderecos: Endereco[] = this.fillEnderecos(result.rows);
+    this.databaseService.databasereturn();
     return enderecos;
   }
 
@@ -56,8 +51,20 @@ export class EnderecoService implements Resolve<TipoImovel[]> {
     return enderecos;
   }
 
-  getTiposImoveis(): Observable<TipoImovel[]> {
-    return this.http.get<TipoImovel[]>('https://run.mocky.io/v3/60ca72ff-768c-48d0-ac65-2c62f48c7ad4');
+  async getTiposImoveis(): Promise<TipoImovel[]> {
+    const sql = 'SELECT * FROM tiposImoveis';
+    const result = await this.databaseService.executeSql(sql);
+    const tiposImovel = await this.fillImoveis(result.rows);
+    return tiposImovel;
+  }
+
+  private fillImoveis(rows: any): TipoImovel[] {
+    const tiposImoveis: TipoImovel[] = [];
+    for (let i = 0; i < rows.length; i++) {
+      const tipoImovel: TipoImovel = rows.item(i);
+      tiposImoveis.push(tipoImovel);
+    }
+    return tiposImoveis;
   }
 
   postEndereco(endereco: Endereco) {
@@ -78,10 +85,9 @@ export class EnderecoService implements Resolve<TipoImovel[]> {
     return endereco;
   }
 
-  putEndereco(endereco: Endereco) {
-    const sql = 'UPDATE enderecos SET (cep,pais,logradouro,complemento,bairro,numero,cidade,uf,ramoAtividade,classe,tipoImovelId,descricao,data,dataInicio,dataTermino) = (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) WHERE id = ?';
+  putEndereco(endereco: Endereco, enderecoId: number) {
+    const sql = `UPDATE enderecos SET cep = ?,pais = ?,logradouro = ?,complemento = ?,bairro = ?,numero = ?,cidade = ?,uf = ?,ramoAtividade = ?,classe = ?,tipoImovelId = ?,descricao = ?,data = ?,dataInicio = ?,dataTermino = ? WHERE id = ${enderecoId}`;
     const data = Object.values(endereco);
-    console.log(sql, data);
     return this.databaseService.executeSql(sql, data);
   }
 
